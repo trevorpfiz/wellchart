@@ -3,8 +3,8 @@ import { TRPCError } from "@trpc/server";
 import { nanoid } from "nanoid";
 import { z } from "zod";
 
-import { desc, eq, schema } from "@wellchart/db";
-import { CreatePostSchema } from "@wellchart/validators";
+import { desc, eq } from "@wellchart/db";
+import { createPostSchema, post, profile } from "@wellchart/db/schema";
 
 import { protectedProcedure, publicProcedure } from "../trpc";
 
@@ -12,7 +12,7 @@ export const postRouter = {
   all: publicProcedure.query(({ ctx }) => {
     return ctx.db.query.post.findMany({
       with: { author: true },
-      orderBy: desc(schema.post.id),
+      orderBy: desc(post.id),
       limit: 10,
     });
   }),
@@ -22,12 +22,12 @@ export const postRouter = {
     .query(({ ctx, input }) => {
       return ctx.db.query.post.findFirst({
         with: { author: true },
-        where: eq(schema.post.id, input.id),
+        where: eq(post.id, input.id),
       });
     }),
 
   create: protectedProcedure
-    .input(CreatePostSchema)
+    .input(createPostSchema)
     .mutation(async ({ ctx, input }) => {
       function getNameFromUser() {
         const meta = ctx.user.user_metadata;
@@ -39,12 +39,12 @@ export const postRouter = {
 
       const authorId = await ctx.db.query.profile
         .findFirst({
-          where: eq(schema.profile.id, ctx.user.id),
+          where: eq(profile.id, ctx.user.id),
         })
-        .then(async (profile) => {
-          if (profile) return profile.id;
+        .then(async (p) => {
+          if (p) return p.id;
           const [newProfile] = await ctx.db
-            .insert(schema.profile)
+            .insert(profile)
             .values({
               id: ctx.user.id,
               name: getNameFromUser(),
@@ -56,7 +56,7 @@ export const postRouter = {
           return newProfile!.id;
         });
 
-      return ctx.db.insert(schema.post).values({
+      return ctx.db.insert(post).values({
         id: nanoid(),
         authorId,
         title: input.title,
@@ -67,17 +67,17 @@ export const postRouter = {
   delete: protectedProcedure
     .input(z.string())
     .mutation(async ({ ctx, input }) => {
-      const post = await ctx.db.query.post.findFirst({
-        where: eq(schema.post.id, input),
+      const data = await ctx.db.query.post.findFirst({
+        where: eq(post.id, input),
       });
 
-      if (post?.authorId !== ctx.user.id) {
+      if (data?.authorId !== ctx.user.id) {
         throw new TRPCError({
           code: "UNAUTHORIZED",
           message: "Only the author is allowed to delete the post",
         });
       }
 
-      return ctx.db.delete(schema.post).where(eq(schema.post.id, input));
+      return ctx.db.delete(post).where(eq(post.id, input));
     }),
 } satisfies TRPCRouterRecord;

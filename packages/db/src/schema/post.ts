@@ -1,5 +1,7 @@
 import { relations, sql } from "drizzle-orm";
 import { timestamp, varchar } from "drizzle-orm/pg-core";
+import { createInsertSchema } from "drizzle-zod";
+import { z } from "zod";
 
 import { createTable } from "./_table";
 import { profile } from "./profile";
@@ -19,3 +21,11 @@ export const post = createTable("post", {
 export const postRelations = relations(post, ({ one }) => ({
   author: one(profile, { fields: [post.authorId], references: [profile.id] }),
 }));
+
+export const createPostSchema = createInsertSchema(post, {
+  title: z.string().max(256),
+  content: z.string().max(256),
+}).omit({
+  id: true,
+  createdAt: true,
+});

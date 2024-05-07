@@ -6,4 +6,4 @@ export const users = authSchema.table("users", {
   id: uuid("id").primaryKey(),
 });
 
-// Used to setup foreign key from profile.id to auth.users table in Supabase
+// Used to mock foreign key from profile.id to auth.users table in Supabase

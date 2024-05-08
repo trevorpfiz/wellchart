@@ -3,18 +3,15 @@ import { sql } from "@vercel/postgres";
 import { drizzle } from "drizzle-orm/vercel-postgres";
 import { z } from "zod";
 
-// FIXME: might be causing issues with the typescript compiler
 import * as schema from "./schema";
 
 export const env = createEnv({
   server: {
     POSTGRES_URL: z.string(),
   },
+  // eslint-disable-next-line no-restricted-properties
   runtimeEnv: process.env,
   emptyStringAsUndefined: true,
 });
 
-// FIXME: might be causing issues with the typescript compiler
-export const createDBClient = () => {
-  return drizzle(sql, { schema });
-};
+export const db = drizzle(sql, { schema });

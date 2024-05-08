@@ -1,11 +1,11 @@
 import { Clipboard, Cog, HomeIcon } from "lucide-react";
 
-import { SidebarLink } from "~/components/sidebar-items";
+import type { SidebarLink } from "~/components/sidebar-items";
 
-type AdditionalLinks = {
+interface AdditionalLinks {
   title: string;
   links: SidebarLink[];
-};
+}
 
 export const defaultLinks: SidebarLink[] = [
   { href: "/dashboard", title: "Home", icon: HomeIcon },

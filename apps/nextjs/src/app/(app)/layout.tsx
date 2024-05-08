@@ -3,11 +3,7 @@ import { Toaster } from "@wellchart/ui/sonner";
 import Navbar from "~/components/navbar";
 import Sidebar from "~/components/sidebar";
 
-export default async function AppLayout({
-  children,
-}: {
-  children: React.ReactNode;
-}) {
+export default function AppLayout({ children }: { children: React.ReactNode }) {
   return (
     <main>
       <div className="flex h-screen">

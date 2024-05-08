@@ -37,7 +37,7 @@ const UserDetails = ({ user }: { user: User }) => {
     <Link href="/account">
       <div className="flex w-full items-center justify-between border-t border-border px-2 pt-4">
         <div className="text-muted-foreground">
-          <p className="text-xs">{name ?? "User"}</p>
+          <p className="text-xs">{name}</p>
           <p className="pr-4 text-xs font-light">
             {user.email ?? "john@doe.com"}
           </p>
@@ -45,11 +45,9 @@ const UserDetails = ({ user }: { user: User }) => {
         <Avatar className="h-10 w-10">
           <AvatarFallback className="border-2 border-border text-muted-foreground">
             {name
-              ? name
-                  ?.split(" ")
-                  .map((word) => word[0]?.toUpperCase())
-                  .join("")
-              : "~"}
+              .split(" ")
+              .map((word) => word[0]?.toUpperCase())
+              .join("")}
           </AvatarFallback>
         </Avatar>
       </div>

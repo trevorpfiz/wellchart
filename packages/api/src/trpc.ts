@@ -11,7 +11,7 @@ import { initTRPC, TRPCError } from "@trpc/server";
 import superjson from "superjson";
 import { ZodError } from "zod";
 
-import { createDBClient } from "@wellchart/db/client";
+import { db } from "@wellchart/db/client";
 
 /**
  * 1. CONTEXT
@@ -40,12 +40,11 @@ export const createTRPCContext = async (opts: {
     : await supabase.auth.getUser();
 
   const source = opts.headers.get("x-trpc-source") ?? "unknown";
-  console.log(">>> tRPC Request from", source, "by", user?.data.user?.email);
+  console.log(">>> tRPC Request from", source, "by", user.data.user?.email);
 
   return {
     user: user.data.user,
-    // FIXME: might be causing issues with the typescript compiler
-    db: createDBClient(),
+    db,
   };
 };
 

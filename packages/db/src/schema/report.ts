@@ -1,7 +1,7 @@
+import type { z } from "zod";
 import { relations, sql } from "drizzle-orm";
 import { serial, text, timestamp, uuid, varchar } from "drizzle-orm/pg-core";
 import { createInsertSchema, createSelectSchema } from "drizzle-zod";
-import { z } from "zod";
 
 import { timestamps } from "../lib/utils";
 import { createTable } from "./_table";

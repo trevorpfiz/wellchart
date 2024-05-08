@@ -18,10 +18,9 @@ import {
   useFormContext,
 } from "react-hook-form";
 
-
+import { cn } from "@wellchart/ui";
 
 import { Label } from "./label";
-import { cn } from "@wellchart/ui";
 
 const useForm = <TOut, TDef extends ZodTypeDef, TIn extends FieldValues>(
   props: Omit<UseFormProps<TIn>, "resolver"> & {

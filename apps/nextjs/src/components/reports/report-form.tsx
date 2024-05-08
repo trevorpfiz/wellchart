@@ -3,11 +3,8 @@
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
 
-import {
-  insertReportParams,
-  NewReportParams,
-  Report,
-} from "@wellchart/db/schema";
+import type { NewReportParams, Report } from "@wellchart/db/schema";
+import { insertReportParams } from "@wellchart/db/schema";
 import { Button } from "@wellchart/ui/button";
 import {
   Form,

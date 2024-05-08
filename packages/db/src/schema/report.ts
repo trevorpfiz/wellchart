@@ -1,6 +1,6 @@
 import { relations, sql } from "drizzle-orm";
 import { serial, text, timestamp, uuid, varchar } from "drizzle-orm/pg-core";
-import { createInsertSchema } from "drizzle-zod";
+import { createInsertSchema, createSelectSchema } from "drizzle-zod";
 import { z } from "zod";
 
 import { timestamps } from "../lib/utils";
@@ -29,8 +29,30 @@ export const reportRelations = relations(report, ({ one }) => ({
   }),
 }));
 
-export const createReportSchema = createInsertSchema(report).omit({
+// Schema for reports - used to validate API requests
+const baseSchema = createSelectSchema(report).omit(timestamps);
+
+export const insertReportSchema = createInsertSchema(report).omit(timestamps);
+export const insertReportParams = baseSchema.extend({}).omit({
   id: true,
-  ...timestamps,
+  profileId: true,
 });
-export type CreateReportInput = z.infer<typeof createReportSchema>;
+
+export const updateReportSchema = baseSchema;
+export const updateReportParams = baseSchema
+  .extend({})
+  .omit({
+    profileId: true,
+  })
+  .partial()
+  .extend({
+    id: baseSchema.shape.id,
+  });
+export const reportIdSchema = baseSchema.pick({ id: true });
+
+// Types for reports - used to type API request params and within Components
+export type Report = typeof report.$inferSelect;
+export type NewReport = z.infer<typeof insertReportSchema>;
+export type NewReportParams = z.infer<typeof insertReportParams>;
+export type UpdateReportParams = z.infer<typeof updateReportParams>;
+export type ReportId = z.infer<typeof reportIdSchema>["id"];

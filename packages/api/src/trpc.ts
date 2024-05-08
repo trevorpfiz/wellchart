@@ -44,6 +44,7 @@ export const createTRPCContext = async (opts: {
 
   return {
     user: user.data.user,
+    // FIXME: might be causing issues with the typescript compiler
     db: createDBClient(),
   };
 };

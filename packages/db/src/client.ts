@@ -3,6 +3,7 @@ import { sql } from "@vercel/postgres";
 import { drizzle } from "drizzle-orm/vercel-postgres";
 import { z } from "zod";
 
+// FIXME: might be causing issues with the typescript compiler
 import * as schema from "./schema";
 
 export const env = createEnv({
@@ -13,6 +14,7 @@ export const env = createEnv({
   emptyStringAsUndefined: true,
 });
 
+// FIXME: might be causing issues with the typescript compiler
 export const createDBClient = () => {
   return drizzle(sql, { schema });
 };

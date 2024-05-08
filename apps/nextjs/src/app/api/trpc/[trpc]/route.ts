@@ -5,7 +5,7 @@ import { appRouter, createTRPCContext } from "@wellchart/api";
 
 import { createClient } from "~/utils/supabase/server";
 
-export const runtime = "edge";
+// export const runtime = "edge";
 
 /**
  * Configure basic CORS headers

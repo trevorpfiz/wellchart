@@ -62,5 +62,9 @@ async def upload_zip(file: UploadFile = File(...), token: str = Depends(verify_t
 async def health_check():
     return JSONResponse(
         status_code=200,
-        content={"status": "ok", "message": "Service is up and running"},
+        content={
+            "message": "File processed and API called successfully",
+            "batches_processed": 0,
+            "prechart": "hi",
+        },
     )

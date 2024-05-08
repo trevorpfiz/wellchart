@@ -3,6 +3,11 @@ import type { NextRequest } from "next/server";
 import { NextResponse } from "next/server";
 import { createServerClient } from "@supabase/ssr";
 
+import {
+  authRoutes,
+  DEFAULT_LOGIN_REDIRECT,
+  protectedRoutes,
+} from "~/config/routes";
 import { env } from "~/env";
 
 export async function updateSession(request: NextRequest) {
@@ -58,7 +63,25 @@ export async function updateSession(request: NextRequest) {
     },
   );
 
-  await supabase.auth.getUser();
+  // Get user
+  const { data, error } = await supabase.auth.getUser();
 
+  // If protected route and user is not authenticated, redirect to signin
+  const isProtectedRoute = protectedRoutes.includes(request.nextUrl.pathname);
+
+  if (isProtectedRoute && (error ?? !data.user)) {
+    const url = new URL("/signin", request.url);
+    return NextResponse.redirect(url);
+  }
+
+  // Forward authed user to dashboard if auth route
+  const isAuthRoute = authRoutes.includes(request.nextUrl.pathname);
+
+  if (isAuthRoute && data.user) {
+    const url = new URL(DEFAULT_LOGIN_REDIRECT, request.url);
+    return NextResponse.redirect(url);
+  }
+
+  // If user is authenticated, proceed as normal
   return response;
 }

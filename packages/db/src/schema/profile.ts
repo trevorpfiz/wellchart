@@ -1,16 +1,20 @@
 import { relations } from "drizzle-orm";
-import { varchar } from "drizzle-orm/pg-core";
+import { uuid, varchar } from "drizzle-orm/pg-core";
 
 import { createTable } from "./_table";
-import { post } from "./post";
+import { users } from "./auth";
+import { report } from "./report";
 
 export const profile = createTable("profile", {
-  id: varchar("id", { length: 256 }).primaryKey(),
+  // Matches id from auth.users table in Supabase
+  id: uuid("id")
+    .primaryKey()
+    .references(() => users.id, { onDelete: "cascade" }),
   name: varchar("name", { length: 256 }).notNull(),
   image: varchar("image", { length: 256 }),
   email: varchar("email", { length: 256 }),
 });
 
 export const profileRelations = relations(profile, ({ many }) => ({
-  posts: many(post),
+  reports: many(report),
 }));

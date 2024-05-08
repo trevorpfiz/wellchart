@@ -2,7 +2,7 @@ import { sql } from "@vercel/postgres";
 import { drizzle } from "drizzle-orm/vercel-postgres";
 import { migrate } from "drizzle-orm/vercel-postgres/migrator";
 
-import { env } from "./config";
+import { env } from "./client";
 
 const runMigrate = async () => {
   if (!env.POSTGRES_URL) {
@@ -15,7 +15,7 @@ const runMigrate = async () => {
 
   const start = Date.now();
 
-  await migrate(db, { migrationsFolder: "src/migrations" });
+  await migrate(db, { migrationsFolder: "migrations" });
 
   const end = Date.now();
 

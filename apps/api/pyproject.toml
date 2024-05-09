@@ -1,0 +1,26 @@
+[tool.poetry]
+name = "api"
+version = "0.1.0"
+description = ""
+authors = ["trevorpfiz <elektrikspark@gmail.com>", "zacharypfiz <ztpfizcode@gmail.com>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.12"
+python-dotenv = "^1.0.1"
+fastapi = "^0.111.0"
+uvicorn = "^0.27.1"
+pydantic-settings = "^2.2.1"
+pymupdf = "^1.24.2"
+pandas = "^2.2.2"
+python-jose = {extras = ["cryptography"], version = "^3.3.0"}
+requests = "^2.31.0"
+
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.4.3"
+pytest = "^8.0.1"
+pylint-pydantic = "^0.3.2"
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"

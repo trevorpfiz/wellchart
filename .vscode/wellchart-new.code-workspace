@@ -1,0 +1,33 @@
+{
+  "folders": [
+    {
+      "name": "Web",
+      "path": "../apps/nextjs",
+    },
+    {
+      "name": "FastAPI",
+      "path": "../apps/api",
+    },
+    {
+      "name": "Root",
+      "path": "../",
+    },
+  ],
+  "extensions": {
+    "recommendations": [
+      "joshx.workspace-terminals",
+      "teticio.python-envy",
+      "charliermarsh.ruff",
+    ],
+  },
+  "launch": {
+    "version": "0.2.0",
+    "configurations": [],
+    "compounds": [
+      {
+        "name": "Launch Web and FastAPI",
+        "configurations": ["Next.js: Chrome", "Python: FastAPI"],
+      },
+    ],
+  },
+}

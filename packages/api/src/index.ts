@@ -1,8 +1,14 @@
 import type { inferRouterInputs, inferRouterOutputs } from "@trpc/server";
 
 import type { AppRouter } from "./root";
+import { OpenAPI } from "./lib/api/client";
 import { appRouter } from "./root";
 import { createCallerFactory, createTRPCContext } from "./trpc";
+
+if (process.env.NODE_ENV === "production") {
+  // FIXME: FastAPI deployment goes here
+  OpenAPI.BASE = "https://change-this-urlllll.vercel.app";
+}
 
 /**
  * Create a server-side caller for the tRPC API

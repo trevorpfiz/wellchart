@@ -1,16 +1,21 @@
 import { SignOutButton } from "~/components/auth/sign-out-button";
+import { api } from "~/trpc/server";
 import { createClient } from "~/utils/supabase/server";
 
 export default async function Home() {
   const supabase = createClient();
-  const { data } = await supabase.auth.getUser();
+  const { data } = await supabase.auth.getSession();
+
+  const test = await api.report.test({
+    token: data?.session?.access_token ?? "",
+  });
+
+  console.log(test);
 
   return (
     <main className="">
       <h1 className="my-2 text-2xl font-bold">Profile</h1>
-      <pre className="my-2 rounded-lg bg-secondary p-4">
-        {JSON.stringify(data.user, null, 2)}
-      </pre>
+      <p>{test?.message}</p>
       <SignOutButton />
     </main>
   );

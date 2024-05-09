@@ -17,7 +17,9 @@ class Settings(BaseSettings):
     JWT_SECRET: str = os.getenv("JWT_SECRET")
     ANTHROPIC_API_KEY: str = os.getenv("ANTHROPIC_API_KEY")
     OPENAI_API_KEY: str = os.getenv("OPENAI_API_KEY")
+
     model_config = SettingsConfigDict(env_file=".env")
+    openapi_url: str = "/openapi.json"
     API_VERSION: str = "/api/v1"
     ROOT: str = ROOT_PATH
 

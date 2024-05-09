@@ -9,9 +9,26 @@ import {
   updateReportParams,
 } from "@wellchart/db/schema";
 
+import { HealthService, OpenAPI } from "../lib/api/client";
 import { protectedProcedure, publicProcedure } from "../trpc";
 
 export const reportRouter = {
+  test: publicProcedure
+    .input(z.object({ token: z.string() }))
+    .query(async ({ input }) => {
+      const { token } = input;
+
+      if (!token) {
+        throw new Error("User token not available");
+      }
+
+      OpenAPI.TOKEN = token;
+
+      const response = await HealthService.healthHealthCheck();
+
+      return response;
+    }),
+
   all: publicProcedure.query(async ({ ctx }) => {
     const rows = await ctx.db.query.report.findMany({
       with: { profile: true },

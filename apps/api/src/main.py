@@ -32,6 +32,7 @@ def get_application():
         generate_unique_id_function=custom_generate_unique_id,
         root_path=settings.ROOT,
         root_path_in_servers=True,
+        openapi_url=settings.openapi_url,
     )
 
     _app.add_middleware(

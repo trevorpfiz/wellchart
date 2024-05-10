@@ -10,7 +10,13 @@ import { TRPCReactProvider } from "~/trpc/react";
 
 import "~/app/globals.css";
 
+import { OpenAPI } from "@wellchart/api/client";
+
 import { env } from "~/env";
+
+if (process.env.NODE_ENV === "production") {
+  OpenAPI.BASE = env.FASTAPI_URL;
+}
 
 export const metadata: Metadata = {
   metadataBase: new URL(

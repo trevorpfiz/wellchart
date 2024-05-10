@@ -6,8 +6,8 @@ from src.api.api_v1.auth.verify import verify_token
 router = APIRouter()
 
 
-@router.get("/health", status_code=200)
-async def health_check(user: str = Depends(verify_token)):
+@router.get("", status_code=200)
+async def check(user: str = Depends(verify_token)):
     """Secured health check endpoint."""
     if not user:
         raise HTTPException(status_code=401, detail="Unauthorized")

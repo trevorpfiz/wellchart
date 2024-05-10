@@ -20,7 +20,7 @@ class Settings(BaseSettings):
 
     model_config = SettingsConfigDict(env_file=".env")
     openapi_url: str = "/openapi.json"
-    API_VERSION: str = "/api/v1"
+    API_VERSION: str = "/v1"
     ROOT: str = ROOT_PATH
 
 

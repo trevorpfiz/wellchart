@@ -2,8 +2,9 @@ from fastapi import APIRouter
 
 from src.api.api_v1.routers import health, upload
 
-
 api_router = APIRouter()
+
+
 api_router.include_router(
     health.router,
     prefix="/health",

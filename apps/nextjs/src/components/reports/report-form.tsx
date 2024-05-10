@@ -49,7 +49,13 @@ const ReportForm = ({
     }
 
     await utils.report.byUser.invalidate();
-    router.refresh();
+
+    if (action === "delete") {
+      router.push("/reports");
+    } else if (action === "update") {
+      router.refresh();
+    }
+
     if (closeModal) closeModal();
     toast.success(`Report ${action}d!`);
   };

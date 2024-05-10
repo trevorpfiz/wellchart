@@ -17,8 +17,8 @@ from src.config import settings
 router = APIRouter()
 
 
-@router.post("/upload", status_code=200)
-async def upload_zip(file: UploadFile = File(...), user: str = Depends(verify_token)):
+@router.post("", status_code=200)
+async def zip(file: UploadFile = File(...), user: str = Depends(verify_token)):
     """Secure endpoint to upload and process zip files, ensuring valid JWTs."""
     try:
         with tempfile.TemporaryDirectory() as temp_dir:

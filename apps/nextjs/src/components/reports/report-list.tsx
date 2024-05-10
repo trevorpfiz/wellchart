@@ -1,21 +1,21 @@
 "use client";
 
+import { use } from "react";
+import Link from "next/link";
+
 import type { RouterOutputs } from "@wellchart/api";
 import type { Report } from "@wellchart/db/schema";
+import { Button } from "@wellchart/ui/button";
 
 import { api } from "~/trpc/react";
 import ReportModal from "./report-modal";
 
-type UserReportsOutput = RouterOutputs["report"]["byUser"];
-
-export default function ReportList({
-  reports,
-}: {
-  reports: UserReportsOutput;
+export default function ReportList(props: {
+  reports: Promise<RouterOutputs["report"]["byUser"]>;
 }) {
+  const initialData = use(props.reports);
   const { data: r } = api.report.byUser.useQuery(undefined, {
-    initialData: reports,
-    refetchOnMount: false,
+    initialData,
   });
 
   if (r.reports.length === 0) {
@@ -37,7 +37,9 @@ const Report = ({ report }: { report: Report }) => {
       <div className="w-full">
         <div>{report.title}</div>
       </div>
-      <ReportModal report={report} />
+      <Button variant={"ghost"} size={"sm"} asChild>
+        <Link href={`/reports/${report.id}`}>{"View"}</Link>
+      </Button>
     </li>
   );
 };

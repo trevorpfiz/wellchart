@@ -6,8 +6,7 @@ import { appRouter } from "./root";
 import { createCallerFactory, createTRPCContext } from "./trpc";
 
 if (process.env.NODE_ENV === "production") {
-  // FIXME: FastAPI deployment goes here
-  OpenAPI.BASE = "https://change-this-urlllll.vercel.app";
+  OpenAPI.BASE = process.env.FASTAPI_URL ?? "https://api.getwellchart.com";
 }
 
 /**

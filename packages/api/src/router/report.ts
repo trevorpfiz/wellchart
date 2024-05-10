@@ -24,7 +24,7 @@ export const reportRouter = {
 
       OpenAPI.TOKEN = token;
 
-      const response = await HealthService.healthHealthCheck();
+      const response = await HealthService.healthCheck();
 
       return response;
     }),

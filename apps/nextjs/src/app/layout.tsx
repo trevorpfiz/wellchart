@@ -14,7 +14,7 @@ import { OpenAPI } from "@wellchart/api/client";
 
 import { env } from "~/env";
 
-if (process.env.NODE_ENV === "production") {
+if (env.NODE_ENV === "production") {
   OpenAPI.BASE = env.FASTAPI_URL;
 }
 

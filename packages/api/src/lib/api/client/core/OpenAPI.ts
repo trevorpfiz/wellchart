@@ -1,4 +1,4 @@
-import type { ApiRequestOptions } from './ApiRequestOptions';
+import type { ApiRequestOptions } from "./ApiRequestOptions";
 
 type Headers = Record<string, string>;
 type Middleware<T> = (value: T) => T | Promise<T>;
@@ -23,34 +23,34 @@ export class Interceptors<T> {
   }
 }
 
-export type OpenAPIConfig = {
-	BASE: string;
-	CREDENTIALS: 'include' | 'omit' | 'same-origin';
-	ENCODE_PATH?: ((path: string) => string) | undefined;
-	HEADERS?: Headers | Resolver<Headers> | undefined;
-	PASSWORD?: string | Resolver<string> | undefined;
-	TOKEN?: string | Resolver<string> | undefined;
-	USERNAME?: string | Resolver<string> | undefined;
-	VERSION: string;
-	WITH_CREDENTIALS: boolean;
-	interceptors: {
-		request: Interceptors<RequestInit>;
-		response: Interceptors<Response>;
-	};
-};
+export interface OpenAPIConfig {
+  BASE: string;
+  CREDENTIALS: "include" | "omit" | "same-origin";
+  ENCODE_PATH?: ((path: string) => string) | undefined;
+  HEADERS?: Headers | Resolver<Headers> | undefined;
+  PASSWORD?: string | Resolver<string> | undefined;
+  TOKEN?: string | Resolver<string> | undefined;
+  USERNAME?: string | Resolver<string> | undefined;
+  VERSION: string;
+  WITH_CREDENTIALS: boolean;
+  interceptors: {
+    request: Interceptors<RequestInit>;
+    response: Interceptors<Response>;
+  };
+}
 
 export const OpenAPI: OpenAPIConfig = {
-	BASE: 'http://127.0.0.1:8000',
-	CREDENTIALS: 'include',
-	ENCODE_PATH: undefined,
-	HEADERS: undefined,
-	PASSWORD: undefined,
-	TOKEN: undefined,
-	USERNAME: undefined,
-	VERSION: '0.1.0',
-	WITH_CREDENTIALS: false,
-	interceptors: {
-		request: new Interceptors(),
-		response: new Interceptors(),
-	},
+  BASE: "http://127.0.0.1:8000",
+  CREDENTIALS: "include",
+  ENCODE_PATH: undefined,
+  HEADERS: undefined,
+  PASSWORD: undefined,
+  TOKEN: undefined,
+  USERNAME: undefined,
+  VERSION: "0.1.0",
+  WITH_CREDENTIALS: false,
+  interceptors: {
+    request: new Interceptors(),
+    response: new Interceptors(),
+  },
 };

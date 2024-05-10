@@ -94,7 +94,7 @@ const FileUpload = (props: { token: string }) => {
         onChange={(e) => {
           const files = e.target.files;
           if (files) {
-            setFile(files[0] as File);
+            setFile(files[0]!);
           }
         }}
         accept=".zip"

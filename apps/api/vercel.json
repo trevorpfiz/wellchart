@@ -14,5 +14,7 @@
   ],
   "env": {
     "APP_MODULE": "src.main:app"
-  }
+  },
+  "cleanUrls": true,
+  "trailingSlash": false
 }

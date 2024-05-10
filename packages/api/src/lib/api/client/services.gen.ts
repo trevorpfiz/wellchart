@@ -42,6 +42,7 @@ export class UploadService {
     return __request(OpenAPI, {
       method: "POST",
       url: "/v1/upload",
+      // @ts-ignore
       formData: data.formData,
       mediaType: "multipart/form-data",
       errors: {

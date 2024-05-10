@@ -2,8 +2,8 @@ import time
 
 import requests
 
-from src.api.api_v1.utils import parse_rfc3339
-from src.config import settings
+from api.config import settings
+from api.endpoints.v1.utils import parse_rfc3339
 
 
 def call_anthropic_api(batches, headers=None):

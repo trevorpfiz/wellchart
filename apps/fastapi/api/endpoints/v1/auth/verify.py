@@ -5,7 +5,7 @@ from fastapi import HTTPException, Security
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from jose import ExpiredSignatureError, JWTError, jwt
 
-from src.config import settings
+from api.config import settings
 
 logging.basicConfig(level=logging.DEBUG)
 

@@ -5,8 +5,8 @@ from fastapi import APIRouter, FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.routing import APIRoute
 
-from src.api.api_v1.api import api_router
-from src.config import settings
+from api.config import settings
+from api.endpoints.v1 import api_router
 
 info_router = APIRouter()
 

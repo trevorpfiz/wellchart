@@ -24,7 +24,7 @@ importers:
         specifier: ^5.4.5
         version: 5.4.5
 
-  apps/api: {}
+  apps/fastapi: {}
 
   apps/nextjs:
     dependencies:
@@ -341,7 +341,7 @@ importers:
         version: 7.34.1(eslint@9.2.0)
       eslint-plugin-react-hooks:
         specifier: beta
-        version: 5.1.0-beta-6946ebe620-20240508(eslint@9.2.0)
+        version: 5.1.0-beta-04b058868c-20240508(eslint@9.2.0)
       typescript-eslint:
         specifier: ^7.8.0
         version: 7.8.0(eslint@9.2.0)(typescript@5.4.5)
@@ -2387,8 +2387,8 @@ packages:
     peerDependencies:
       eslint: ^3 || ^4 || ^5 || ^6 || ^7 || ^8
 
-  eslint-plugin-react-hooks@5.1.0-beta-6946ebe620-20240508:
-    resolution: {integrity: sha512-KWZPlxg1i6f9LrbnVpdinWK6dlia2r9jP0Bw8kXuRU7MNbSfoNF19tNeDuGPzoaIFmwcf4V0dUKKeh/yMTYQLQ==}
+  eslint-plugin-react-hooks@5.1.0-beta-04b058868c-20240508:
+    resolution: {integrity: sha512-5SjQe94ffH/jLSXhjE076pGNfM0O5oDVYFvisPfGuC/Lez2E/mpEzKEMESK//yuQGNtSsPgA/7WyQu+qO7bYSA==}
     engines: {node: '>=10'}
     peerDependencies:
       eslint: ^3.0.0 || ^4.0.0 || ^5.0.0 || ^6.0.0 || ^7.0.0 || ^8.0.0-0 || ^9.0.0
@@ -6174,7 +6174,7 @@ snapshots:
       object.entries: 1.1.8
       object.fromentries: 2.0.8
 
-  eslint-plugin-react-hooks@5.1.0-beta-6946ebe620-20240508(eslint@9.2.0):
+  eslint-plugin-react-hooks@5.1.0-beta-04b058868c-20240508(eslint@9.2.0):
     dependencies:
       eslint: 9.2.0
 

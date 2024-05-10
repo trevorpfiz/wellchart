@@ -5,14 +5,14 @@ import zipfile
 from fastapi import APIRouter, Depends, File, HTTPException, UploadFile
 from fastapi.responses import JSONResponse
 
-from src.api.api_v1.auth.verify import verify_token
-from src.api.api_v1.clients.anthropic import call_anthropic_api
-from src.api.api_v1.processing.text import (
+from api.config import settings
+from api.endpoints.v1.auth.verify import verify_token
+from api.endpoints.v1.clients.anthropic import call_anthropic_api
+from api.endpoints.v1.processing.text import (
     combine_texts,
     consolidate_texts,
     group_text_into_batches,
 )
-from src.config import settings
 
 router = APIRouter()
 

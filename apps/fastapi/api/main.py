@@ -1,12 +1,11 @@
 import logging
-import os
 
 from fastapi import APIRouter, FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from fastapi.routing import APIRoute
 
 from api.config import settings
-from api.endpoints.v1 import api_router
+from api.endpoints.v1.api import api_router
 
 info_router = APIRouter()
 
@@ -39,9 +38,8 @@ def get_application():
     )
 
     origins = ["https://app.getwellchart.com"]
-    environment = os.getenv("VERCEL_ENV", "development")
 
-    if environment in ["development"]:
+    if settings.ENVIRONMENT == "development":
         logger = logging.getLogger("uvicorn")
         logger.warning("Running in development mode - allowing CORS for all origins")
         _app.add_middleware(

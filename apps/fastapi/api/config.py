@@ -14,6 +14,7 @@ ROOT_PATH = os.getenv("ROOT_PATH", "http://127.0.0.1:8000")
 class Settings(BaseSettings):
     PROJECT_NAME: str = "FastAPI App"
     PROJECT_DESCRIPTION: str = "A simple FastAPI app"
+    ENVIRONMENT: str = os.getenv("ENVIRONMENT", "development")
     JWT_SECRET: str = os.getenv("JWT_SECRET")
     ANTHROPIC_API_KEY: str = os.getenv("ANTHROPIC_API_KEY")
     OPENAI_API_KEY: str = os.getenv("OPENAI_API_KEY")

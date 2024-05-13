@@ -6,6 +6,7 @@ import { useRouter } from "next/navigation";
 import { Button } from "@wellchart/ui/button";
 import { toast } from "@wellchart/ui/sonner";
 
+import { env } from "~/env";
 import { api } from "~/trpc/react";
 
 const FileUpload = (props: { token: string }) => {
@@ -53,7 +54,7 @@ const FileUpload = (props: { token: string }) => {
     formData.append("file", file);
 
     try {
-      const response = await fetch("http://127.0.0.1:8000/v1/upload", {
+      const response = await fetch(`${env.FASTAPI_URL}/v1/upload`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${props.token}`,

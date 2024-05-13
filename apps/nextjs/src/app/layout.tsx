@@ -21,16 +21,16 @@ if (env.NODE_ENV === "production") {
 export const metadata: Metadata = {
   metadataBase: new URL(
     env.VERCEL_ENV === "production"
-      ? "https://turbo.t3.gg"
+      ? "https://app.getwellchart.com"
       : "http://localhost:3000",
   ),
-  title: "T3 Turbo x Supabase",
-  description: "Simple monorepo with shared backend for web & mobile apps",
+  title: "WellChart",
+  description: "Pre-charting for digital health companies",
   openGraph: {
-    title: "T3 Turbo x Supabase",
-    description: "Simple monorepo with shared backend for web & mobile apps",
-    url: "https://github.com/supabase-community/create-t3-turbo",
-    siteName: "T3 Turbo x Supabase",
+    title: "WellChart",
+    description: "Pre-charting for digital health companies",
+    url: "https://www.getwellchart.com",
+    siteName: "WellChart",
   },
   twitter: {
     card: "summary_large_image",

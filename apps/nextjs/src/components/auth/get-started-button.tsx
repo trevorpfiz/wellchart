@@ -15,7 +15,7 @@ export const GetStartedButton = ({
   const router = useRouter();
 
   const onClick = () => {
-    router.push("/auth/signup");
+    router.push("/signup");
   };
 
   const onKeyDown = (event: React.KeyboardEvent) => {

@@ -43,7 +43,7 @@ export const SignInForm = () => {
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Email</FormLabel>
+                <FormLabel>Email address</FormLabel>
                 <FormControl>
                   <Input
                     {...field}
@@ -77,7 +77,7 @@ export const SignInForm = () => {
           />
         </div>
 
-        <FormError message={result.fetchError} />
+        <FormError message={result.serverError} />
 
         <Button
           disabled={status === "executing"}

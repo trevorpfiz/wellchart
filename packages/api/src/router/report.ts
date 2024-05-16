@@ -5,7 +5,7 @@ import { z } from "zod";
 import { and, desc, eq } from "@wellchart/db";
 import {
   insertReportParams,
-  report,
+  Report,
   updateReportParams,
 } from "@wellchart/db/schema";
 
@@ -30,9 +30,9 @@ export const reportRouter = {
     }),
 
   all: publicProcedure.query(async ({ ctx }) => {
-    const rows = await ctx.db.query.report.findMany({
+    const rows = await ctx.db.query.Report.findMany({
       with: { profile: true },
-      orderBy: desc(report.id),
+      orderBy: desc(Report.id),
       limit: 10,
     });
 
@@ -40,12 +40,12 @@ export const reportRouter = {
   }),
 
   byId: publicProcedure
-    .input(z.object({ id: z.number() }))
+    .input(z.object({ id: z.string() }))
     .query(async ({ ctx, input }) => {
       const { id } = input;
 
-      const row = await ctx.db.query.report.findFirst({
-        where: eq(report.id, id),
+      const row = await ctx.db.query.Report.findFirst({
+        where: eq(Report.id, id),
         with: { profile: true },
       });
 
@@ -55,9 +55,9 @@ export const reportRouter = {
   byUser: protectedProcedure.query(async ({ ctx }) => {
     const userId = ctx.user.id;
 
-    const rows = await ctx.db.query.report.findMany({
-      where: eq(report.profileId, userId),
-      orderBy: desc(report.id),
+    const rows = await ctx.db.query.Report.findMany({
+      where: eq(Report.profileId, userId),
+      orderBy: desc(Report.id),
       with: { profile: true },
     });
 
@@ -71,7 +71,7 @@ export const reportRouter = {
       const userId = ctx.user.id;
 
       const [r] = await ctx.db
-        .insert(report)
+        .insert(Report)
         .values({
           title,
           content,
@@ -89,26 +89,26 @@ export const reportRouter = {
       const userId = ctx.user.id;
 
       const [r] = await ctx.db
-        .update(report)
+        .update(Report)
         .set({
           title,
           content,
           updatedAt: new Date(),
         })
-        .where(and(eq(report.id, id), eq(report.profileId, userId)))
+        .where(and(eq(Report.id, id), eq(Report.profileId, userId)))
         .returning();
 
       return { report: r };
     }),
 
   delete: protectedProcedure
-    .input(z.object({ id: z.number() }))
+    .input(z.object({ id: z.string() }))
     .mutation(async ({ ctx, input }) => {
       const { id } = input;
       const userId = ctx.user.id;
 
-      const data = await ctx.db.query.report.findFirst({
-        where: eq(report.id, id),
+      const data = await ctx.db.query.Report.findFirst({
+        where: eq(Report.id, id),
       });
 
       if (data?.profileId !== userId) {
@@ -119,8 +119,8 @@ export const reportRouter = {
       }
 
       const [r] = await ctx.db
-        .delete(report)
-        .where(eq(report.id, id))
+        .delete(Report)
+        .where(eq(Report.id, id))
         .returning();
 
       return { report: r };

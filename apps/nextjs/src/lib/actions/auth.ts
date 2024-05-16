@@ -1,5 +1,6 @@
 "use server";
 
+import { revalidatePath } from "next/cache";
 import { headers } from "next/headers";
 import { redirect } from "next/navigation";
 
@@ -22,25 +23,35 @@ export const signInWithPassword = action(
     if (error) {
       throw error;
     }
-    return data.user;
+
+    revalidatePath("/", "layout");
+    redirect(DEFAULT_LOGIN_REDIRECT);
   },
 );
 
 export const signUp = action(SignUpSchema, async ({ email, password }) => {
-  const supabase = createClient();
   const origin = headers().get("origin");
+  const supabase = createClient();
+
+  const redirectUrl = `${origin}/auth/confirm?next=${encodeURIComponent(DEFAULT_LOGIN_REDIRECT)}`;
 
   const { error, data } = await supabase.auth.signUp({
     email,
     password,
     options: {
-      emailRedirectTo: `${origin}/auth/confirm`,
+      emailRedirectTo: redirectUrl,
     },
   });
+
+  // User already exists, so fake data is returned. See https://supabase.com/docs/reference/javascript/auth-signup
+  if (data.user?.identities && data.user.identities.length === 0) {
+    throw new Error("An error occurred. Please try again.");
+  }
 
   if (error) {
     throw error;
   }
+
   return data.user;
 });
 

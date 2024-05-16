@@ -44,7 +44,7 @@ export const SignUpForm = () => {
             name="email"
             render={({ field }) => (
               <FormItem>
-                <FormLabel>Email</FormLabel>
+                <FormLabel>Email address</FormLabel>
                 <FormControl>
                   <Input
                     {...field}
@@ -81,7 +81,7 @@ export const SignUpForm = () => {
         {status === "hasSucceeded" && (
           <FormSuccess message={"Confirmation email has been sent!"} />
         )}
-        <FormError message={result.fetchError} />
+        <FormError message={result.serverError} />
 
         <Button
           disabled={status === "executing"}

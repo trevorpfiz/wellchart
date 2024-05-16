@@ -6,6 +6,7 @@ import { createServerClient } from "@supabase/ssr";
 
 import {
   authRoutes,
+  DEFAULT_AUTH_ROUTE,
   DEFAULT_LOGIN_REDIRECT,
   protectedRoutes,
 } from "~/config/routes";
@@ -71,11 +72,11 @@ export async function updateSession(request: NextRequest) {
   const isProtectedRoute = protectedRoutes.includes(request.nextUrl.pathname);
 
   if (isProtectedRoute && (error ?? !data.user)) {
-    const url = new URL("/signin", request.url);
+    const url = new URL(DEFAULT_AUTH_ROUTE, request.url);
     return NextResponse.redirect(url);
   }
 
-  // Forward authed user to dashboard if auth route
+  // Forward authed user to DEFAULT_LOGIN_REDIRECT if auth route
   const isAuthRoute = authRoutes.includes(request.nextUrl.pathname);
 
   if (isAuthRoute && data.user) {
@@ -83,6 +84,6 @@ export async function updateSession(request: NextRequest) {
     return NextResponse.redirect(url);
   }
 
-  // If user is authenticated, proceed as normal
+  // Proceed as normal
   return response;
 }

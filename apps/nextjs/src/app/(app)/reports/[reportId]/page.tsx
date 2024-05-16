@@ -11,7 +11,7 @@ export default async function Report({
 }: {
   params: { reportId: string };
 }) {
-  const { report } = await api.report.byId({ id: Number(params.reportId) });
+  const { report } = await api.report.byId({ id: params.reportId });
 
   if (!report) notFound();
   return (

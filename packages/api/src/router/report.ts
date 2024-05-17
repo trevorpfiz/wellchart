@@ -93,7 +93,6 @@ export const reportRouter = {
         .set({
           title,
           content,
-          updatedAt: new Date(),
         })
         .where(and(eq(Report.id, id), eq(Report.profileId, userId)))
         .returning();

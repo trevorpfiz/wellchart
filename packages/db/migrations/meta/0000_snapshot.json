@@ -1,10 +1,8 @@
 {
-  "id": "225a9ba0-acad-4d5c-ac65-73a6d7d8af6a",
-  "prevId": "00000000-0000-0000-0000-000000000000",
-  "version": "5",
-  "dialect": "pg",
+  "version": "6",
+  "dialect": "postgresql",
   "tables": {
-    "users": {
+    "auth.users": {
       "name": "users",
       "schema": "auth",
       "columns": {
@@ -20,7 +18,7 @@
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "wc_profile": {
+    "public.wc_profile": {
       "name": "wc_profile",
       "schema": "",
       "columns": {
@@ -54,18 +52,22 @@
         "wc_profile_id_users_id_fk": {
           "name": "wc_profile_id_users_id_fk",
           "tableFrom": "wc_profile",
+          "columnsFrom": [
+            "id"
+          ],
           "tableTo": "users",
           "schemaTo": "auth",
-          "columnsFrom": ["id"],
-          "columnsTo": ["id"],
-          "onDelete": "cascade",
-          "onUpdate": "no action"
+          "columnsTo": [
+            "id"
+          ],
+          "onUpdate": "no action",
+          "onDelete": "cascade"
         }
       },
       "compositePrimaryKeys": {},
       "uniqueConstraints": {}
     },
-    "wc_report": {
+    "public.wc_report": {
       "name": "wc_report",
       "schema": "",
       "columns": {
@@ -113,11 +115,15 @@
         "wc_report_profile_id_wc_profile_id_fk": {
           "name": "wc_report_profile_id_wc_profile_id_fk",
           "tableFrom": "wc_report",
+          "columnsFrom": [
+            "profile_id"
+          ],
           "tableTo": "wc_profile",
-          "columnsFrom": ["profile_id"],
-          "columnsTo": ["id"],
-          "onDelete": "no action",
-          "onUpdate": "no action"
+          "columnsTo": [
+            "id"
+          ],
+          "onUpdate": "no action",
+          "onDelete": "no action"
         }
       },
       "compositePrimaryKeys": {},
@@ -127,8 +133,10 @@
   "enums": {},
   "schemas": {},
   "_meta": {
-    "columns": {},
     "schemas": {},
-    "tables": {}
-  }
+    "tables": {},
+    "columns": {}
+  },
+  "id": "225a9ba0-acad-4d5c-ac65-73a6d7d8af6a",
+  "prevId": "00000000-0000-0000-0000-000000000000"
 }

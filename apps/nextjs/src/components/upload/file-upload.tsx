@@ -54,7 +54,7 @@ const FileUpload = (props: { token: string }) => {
     formData.append("file", file);
 
     try {
-      const response = await fetch(`${env.FASTAPI_URL}/v1/upload`, {
+      const response = await fetch(`${env.NEXT_PUBLIC_FASTAPI_URL}/v1/upload`, {
         method: "POST",
         headers: {
           Authorization: `Bearer ${props.token}`,

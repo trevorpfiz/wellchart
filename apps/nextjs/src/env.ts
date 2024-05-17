@@ -16,7 +16,6 @@ export const env = createEnv({
    */
   server: {
     POSTGRES_URL: z.string().min(1),
-    FASTAPI_URL: z.string().min(1),
   },
   /**
    * Specify your client-side environment variables schema here.
@@ -27,6 +26,7 @@ export const env = createEnv({
     NEXT_PUBLIC_SITE_URL: z.string().min(1),
     NEXT_PUBLIC_SUPABASE_URL: z.string().min(1),
     NEXT_PUBLIC_SUPABASE_ANON_KEY: z.string().min(1),
+    NEXT_PUBLIC_FASTAPI_URL: z.string().min(1),
   },
   /**
    * Destructure all variables from `process.env` to make sure they aren't tree-shaken away.
@@ -37,6 +37,7 @@ export const env = createEnv({
     NEXT_PUBLIC_SITE_URL: process.env.NEXT_PUBLIC_SITE_URL,
     NEXT_PUBLIC_SUPABASE_URL: process.env.NEXT_PUBLIC_SUPABASE_URL,
     NEXT_PUBLIC_SUPABASE_ANON_KEY: process.env.NEXT_PUBLIC_SUPABASE_ANON_KEY,
+    NEXT_PUBLIC_FASTAPI_URL: process.env.NEXT_PUBLIC_FASTAPI_URL,
   },
   skipValidation:
     !!process.env.CI ||

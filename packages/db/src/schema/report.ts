@@ -17,7 +17,7 @@ export const Report = createTable("report", {
   createdAt: timestamp("created_at")
     .default(sql`now()`)
     .notNull(),
-  updatedAt: timestamp("updatedAt", {
+  updatedAt: timestamp("updated_at", {
     mode: "date",
     withTimezone: true,
   }).$onUpdateFn(() => sql`now()`),

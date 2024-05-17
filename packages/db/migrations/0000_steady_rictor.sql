@@ -10,12 +10,12 @@ CREATE TABLE IF NOT EXISTS "wc_profile" (
 );
 --> statement-breakpoint
 CREATE TABLE IF NOT EXISTS "wc_report" (
-	"id" serial PRIMARY KEY NOT NULL,
+	"id" uuid PRIMARY KEY DEFAULT gen_random_uuid() NOT NULL,
 	"title" varchar(256) NOT NULL,
 	"content" text NOT NULL,
 	"profile_id" uuid NOT NULL,
-	"created_at" timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL,
-	"updated_at" timestamp DEFAULT CURRENT_TIMESTAMP NOT NULL
+	"created_at" timestamp DEFAULT now() NOT NULL,
+	"updated_at" timestamp with time zone
 );
 --> statement-breakpoint
 DO $$ BEGIN
@@ -25,7 +25,7 @@ EXCEPTION
 END $$;
 --> statement-breakpoint
 DO $$ BEGIN
- ALTER TABLE "wc_report" ADD CONSTRAINT "wc_report_profile_id_wc_profile_id_fk" FOREIGN KEY ("profile_id") REFERENCES "wc_profile"("id") ON DELETE no action ON UPDATE no action;
+ ALTER TABLE "wc_report" ADD CONSTRAINT "wc_report_profile_id_wc_profile_id_fk" FOREIGN KEY ("profile_id") REFERENCES "public"."wc_profile"("id") ON DELETE no action ON UPDATE no action;
 EXCEPTION
  WHEN duplicate_object THEN null;
 END $$;
